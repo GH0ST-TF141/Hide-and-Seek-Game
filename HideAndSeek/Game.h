@@ -4,9 +4,9 @@
 #include <QGraphicsItem>
 #include <QTimer>
 #include "Player.h"
-#include "Player2.h"
 #include "Food.h"
 #include "Score.h"
+#include "Player2.h"
 
 class Game : public QGraphicsView {
 public:
@@ -15,7 +15,7 @@ public slots:
     inline void checkCollision();
 private:
     Player *player;
-    Player *player2;
+    Player2 *player2;
     Score *score1;
     Score *score2;
     Score *forNext;
