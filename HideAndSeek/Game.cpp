@@ -6,7 +6,7 @@
 
 Game::Game(QGraphicsItem *parent) {
     player = new Player();
-    player2 = new Player();
+    player2 = new Player2();
     food = new Food();
     score1 = new Score("Player1: 0", 10, 10);
     score2 = new Score("Player2: 0", 600, 10);
