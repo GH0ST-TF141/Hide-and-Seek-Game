@@ -4,40 +4,48 @@ Player::Player()
 {
     setRect(-50, -50, 100, 100);
     setFlag(QGraphicsItem::ItemIsFocusable);
+    setFocus();
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Up) {
-        if(y() > 50)
-        setPos(x(), y() - 10);
+    // Add the pressed key to the set of active keys
+    activeKeys.insert(event->key());
+
+    // Check for diagonal movement
+    if (activeKeys.contains(Qt::Key_Up) && activeKeys.contains(Qt::Key_Left)) {
+        moveBy(-10, -10);
     }
-    if(event->key() == Qt::Key_Down) {
-        if(y() < 540 )
-        setPos(x(), y() + 10);
+    else if (activeKeys.contains(Qt::Key_Up) && activeKeys.contains(Qt::Key_Right)) {
+        moveBy(10, -10);
     }
-    if(event->key() == Qt::Key_Left) {
-        if(x() > 50)
-        setPos(x() - 10, y());
+    else if (activeKeys.contains(Qt::Key_Down) && activeKeys.contains(Qt::Key_Left)) {
+        moveBy(-10, 10);
     }
-    if(event->key() == Qt::Key_Right) {
-        if(x() < 740)
-        setPos(x() + 10, y());
+    else if (activeKeys.contains(Qt::Key_Down) && activeKeys.contains(Qt::Key_Right)) {
+        moveBy(10, 10);
     }
-    if (event->key() == Qt::Key_Up && event->key() == Qt::Key_Right) {
-        if (y() > 50 && x() < 740)
-        setPos(x() + 10, y() - 10);
+    // Handle individual directions
+    else if (event->key() == Qt::Key_Up) {
+        if (y() > 50)
+            moveBy(0, -10);
     }
-    if (event->key() == Qt::Key_Up && event->key() == Qt::Key_Left) {
-        if (y() > 50 && x() > 50)
-        setPos(x() - 10, y() - 10);
+    else if (event->key() == Qt::Key_Down) {
+        if (y() < 540)
+            moveBy(0, 10);
     }
-    if (event->key() == Qt::Key_Down && event->key() == Qt::Key_Right) {
-        if (y() < 540 && x() < 740)
-        setPos(x() + 10, y() + 10);
+    else if (event->key() == Qt::Key_Left) {
+        if (x() > 50)
+            moveBy(-10, 0);
     }
-    if (event->key() == Qt::Key_Down && event->key() == Qt::Key_Left) {
-        if (y() < 540 && x() > 50)
-        setPos(x() - 10, y() + 10);
+    else if (event->key() == Qt::Key_Right) {
+        if (x() < 740)
+            moveBy(10, 0);
     }
+}
+
+void Player::keyReleaseEvent(QKeyEvent *event)
+{
+    // Remove the released key from the set of active keys
+    activeKeys.remove(event->key());
 }
