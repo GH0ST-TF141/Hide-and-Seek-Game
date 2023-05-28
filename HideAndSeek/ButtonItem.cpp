@@ -1,4 +1,3 @@
-//commit
 #include "ButtonItem.h"
 #include "Game.h"
 
@@ -28,13 +27,5 @@ void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 
 void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (event->button() == Qt::LeftButton) {
-        // Handle button click event
-        // ...
-        qDebug("Button clicked!");
-    }
+    emit clicked();
 }
-
-
-
-
