@@ -9,9 +9,12 @@
 #include <QMouseEvent>
 #include <QFont>
 #include <QDebug>
+#include <QObject>
 
-class ButtonItem : public QGraphicsRectItem
+class ButtonItem : public QObject, public QGraphicsRectItem
 {
+    Q_OBJECT
+
 public:
     ButtonItem(const QString& text, QGraphicsItem* parent = nullptr);
 
@@ -20,6 +23,8 @@ public:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+signals:
+    void clicked();
 };
 
 
