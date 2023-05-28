@@ -15,7 +15,7 @@ public slots:
     inline void checkCollision();
 private:
     Player *player;
-    Player2 *player2;
+    Player *player2;
     Score *score1;
     Score *score2;
     Score *forNext;
