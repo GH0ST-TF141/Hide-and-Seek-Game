@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include <QRectF>
 Player::Player()
 {
     setFlag(QGraphicsItem::ItemIsFocusable);
@@ -52,4 +52,23 @@ void Player::keyReleaseEvent(QKeyEvent *event)
     if (it != activeKeys.end()) {
         activeKeys.erase(it);
     }
+}
+
+void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    // Draw the white circular area
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(Qt::white);
+    painter->drawEllipse(boundingRect());
+
+    // Draw the player's pixmap
+    QGraphicsPixmapItem::paint(painter, option, widget);
+}
+
+
+QRectF Player::boundingRect() const
+{
+    // Define the bounding circle based on the player's position and radius
+    qreal radius = 120;
+    return QRectF(-25 ,-25, radius, radius);
 }
