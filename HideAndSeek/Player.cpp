@@ -2,27 +2,28 @@
 
 Player::Player()
 {
-    setRect(-50, -50, 100, 100);
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
-    // Add the pressed key to the set of active keys
-    activeKeys.insert(event->key());
+    // Add the pressed key to the vector of active keys
+    if (std::find(activeKeys.begin(), activeKeys.end(), event->key()) == activeKeys.end()) {
+        activeKeys.push_back(event->key());
+    }
 
     // Check for diagonal movement
-    if (activeKeys.contains(Qt::Key_Up) && activeKeys.contains(Qt::Key_Left)) {
+    if (std::count(activeKeys.begin(), activeKeys.end(), Qt::Key_Up) && std::count(activeKeys.begin(), activeKeys.end(), Qt::Key_Left)) {
         moveBy(-10, -10);
     }
-    else if (activeKeys.contains(Qt::Key_Up) && activeKeys.contains(Qt::Key_Right)) {
+    else if (std::count(activeKeys.begin(), activeKeys.end(), Qt::Key_Up) && std::count(activeKeys.begin(), activeKeys.end(), Qt::Key_Right)) {
         moveBy(10, -10);
     }
-    else if (activeKeys.contains(Qt::Key_Down) && activeKeys.contains(Qt::Key_Left)) {
+    else if (std::count(activeKeys.begin(), activeKeys.end(), Qt::Key_Down) && std::count(activeKeys.begin(), activeKeys.end(), Qt::Key_Left)) {
         moveBy(-10, 10);
     }
-    else if (activeKeys.contains(Qt::Key_Down) && activeKeys.contains(Qt::Key_Right)) {
+    else if (std::count(activeKeys.begin(), activeKeys.end(), Qt::Key_Down) && std::count(activeKeys.begin(), activeKeys.end(), Qt::Key_Right)) {
         moveBy(10, 10);
     }
     // Handle individual directions
@@ -46,6 +47,9 @@ void Player::keyPressEvent(QKeyEvent *event)
 
 void Player::keyReleaseEvent(QKeyEvent *event)
 {
-    // Remove the released key from the set of active keys
-    activeKeys.remove(event->key());
+    // Remove the released key from the vector of active keys
+    auto it = std::find(activeKeys.begin(), activeKeys.end(), event->key());
+    if (it != activeKeys.end()) {
+        activeKeys.erase(it);
+    }
 }
