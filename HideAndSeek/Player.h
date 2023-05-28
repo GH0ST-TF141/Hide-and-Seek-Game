@@ -1,10 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include <QGraphicsEllipseItem>
-#include <QKeyEvent>
 
-class Player : public QGraphicsEllipseItem {
-public:
+#include <QGraphicsPixmapItem>
+#include <QKeyEvent>
+#include <vector>
+
+class Player : public QGraphicsPixmapItem {
 public:
     Player();
 
@@ -13,8 +14,7 @@ protected:
     void keyReleaseEvent(QKeyEvent *event) override;
 
 private:
-    QSet<int> activeKeys;
+    std::vector<int> activeKeys;
 };
 
 #endif // PLAYER_H
-
