@@ -5,6 +5,9 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QDebug>
+#include <QObject>
+
+extern Game *game;
 
 EndScene::EndScene(QString text)
 {
@@ -28,22 +31,26 @@ EndScene::EndScene(QString text)
     } catch(std::exception& e) {
         qWarning() << e.what();
     }
+    connect(restart, SIGNAL(clicked()), this, SLOT(restart()));
+    connect(quit, SIGNAL(clicked()), this, SLOT(quit()));
 
     addItem(gameOver);
     addItem(restart);
     addItem(quit);
     addItem(win);
 
-    // Connect the buttons to their respective slots
 }
 
 void EndScene::restart()
 {
-    Game *game = new Game();
-    game->show();
+    qDebug() << "button clicked";
+    game->hide();
+    Game *game2 = new Game();
+    game2->show();
 }
 
 void EndScene::quit()
 {
-    this->clear();
+    qDebug() << "Button quit clicked";
+    game->hide();
 }
