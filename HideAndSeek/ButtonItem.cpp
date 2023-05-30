@@ -29,3 +29,21 @@ void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     emit clicked();
 }
+
+ButtonItem ButtonItem::operator+(const ButtonItem& other) const
+{
+    ButtonItem newItem("", nullptr);
+    newItem.setRect(rect().x() + other.rect().x(),
+                    rect().y() + other.rect().y(),
+                    rect().width() + other.rect().width(),
+                    rect().height() + other.rect().height());
+
+    return newItem;
+}
+
+ButtonItem::ButtonItem(const ButtonItem& other)
+    : QGraphicsRectItem(other.parentItem())
+{
+    setRect(other.rect());
+
+}
