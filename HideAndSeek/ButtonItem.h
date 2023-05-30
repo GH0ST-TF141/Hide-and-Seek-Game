@@ -16,6 +16,7 @@ class ButtonItem : public QObject, public QGraphicsRectItem
     Q_OBJECT
 
 public:
+
     ButtonItem(const QString& text, QGraphicsItem* parent = nullptr);
 
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
@@ -23,6 +24,9 @@ public:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+
+    ButtonItem operator +(const ButtonItem &other) const;
+    ButtonItem(const ButtonItem &other);
 signals:
     void clicked();
 };
