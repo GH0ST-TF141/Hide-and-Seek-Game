@@ -9,7 +9,7 @@ Game::Game(QGraphicsItem *parent) {
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     player = new Player();
-    player2 = new Player();
+    player2 = new Player2();
     player->setPixmap(QPixmap(":images/player.png").scaled(60, 60));
     player2->setPixmap(QPixmap(":images/player2.png").scaled(60, 60));
     food = new Food();
